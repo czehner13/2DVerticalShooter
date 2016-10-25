@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)http://noobtuts.com/unity/2d-space-shooter-game_PREMIUM -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>noobtuts - Unity 2D Space Shooter Game</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1">
+  <meta name="description" content="noobtuts.com - Talk to me like I&#39;m five!">
+  <meta name="keywords" content="noobtuts, gamedevelopment, tutorials, make a game">
+  <meta name="robots" content="index, follow">
+  <link rel="stylesheet" href="http://noobtuts.com/assets/styles/styles.css">
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+    ga('create', 'UA-36008404-2', 'noobtuts.com');
+    ga('send', 'pageview');  
+  </script><style type="text/css"></style>
+</head>
+
+<body>
+  <header>
+    <h1><a href="http://noobtuts.com/"><img src="./noobtuts - Unity 2D Space Shooter Game_files/logo.png" alt="noobtuts"></a></h1>
+  </header><!-- vis2k: nav not working in older IE versions
+<nav class="menu">
+-->
+<div id="menu">
+  <ul>
+        <li><a href="http://noobtuts.com/">Tutorials</a></li>
+        <li><a href="http://noobtuts.com/articles">Articles</a></li>
+        <li><a href="http://noobtuts.com/premium">Premium</a></li>
+        <li><a href="http://noobtuts.com/about">About</a></li>
+      </ul>
+</div>
+<!-- vis2k: nav not working in older IE versions
+</nav>
+-->
+
+<section class="content">
+
+  <article>
+    <h1>Unity 2D Space Shooter Game</h1>
+    <p><img src="./noobtuts - Unity 2D Space Shooter Game_files/unity_2d_space_shooter.png" title="unity_2d_space_shooter" alt="Unity 2D Space Shooter"><br>
+In today's Tutorial we will learn how to make a 2D Space Shooter Game in Unity with less than 100 Lines of Code. As usual everything will be explained as easy as possible so everyone can understand it.</p>
+
+<h2>Foreword</h2>
+
+<p>Our 2D Space Shooter will be inspired by the old arcade games that everyone loved when growing up.</p>
+
+<p>We will make use of all kinds of different Unity features like Physics <em>(including Rigidbodies and Colliders)</em>, Animations <em>(Mecanim)</em>, Scripting <em>(C#)</em>, Prefabs, Shaders and the Sprite Editor. The game art will be very easy to create with our drawing tool of choice.</p>
+
+<h2>Requirements</h2>
+
+<h3>Knowledge</h3>
+
+<p>We will explain every single step in detail, but it's still a good idea to get a basic overview of Unity if you never used it before. Feel free to read through our easier <a href="http://noobtuts.com/unity">Unity Tutorials</a> like <a href="http://noobtuts.com/unity/2d-pong-game">Unity 2D Pong Game</a> to see what Unity is all about.</p>
+
+<p>If you used Unity before then we can get started right away.</p>
+
+<h3>Unity Version</h3>
+
+<p>Our Space Shooter will use <strong>Unity 5.0.1f1</strong>. Newer versions should work fine as well, older versions may or may not work. The free version of Unity 5 now comes with all the engine features, which makes it the recommended version.</p>
+
+<h2>Creating the Project</h2>
+
+<p>Let's get to it. We will start Unity and select <strong>New Project</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/new_project.png" title="new_project" alt="Unity New Project"></p>
+
+<p>We will name it <strong>spaceshooter</strong>, select any location like <strong>C:\</strong>, select <strong>2D</strong> and click <strong>Create Project</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/project_wizard_create_2d.png" title="project_wizard_create_2d" alt="Unity Create new 2D Project"></p>
+
+<h2>Making the World Black</h2>
+
+<p>At first we will select the <strong>Main Camera</strong> in the <strong>Hierarchy</strong> and then take a look over to the Inspector. We will change the <strong>Background</strong> color to black and adjust the size to <strong>10</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/camera_properties.png" title="camera_properties" alt="Unity Camera Properties"></p>
+
+<h2>Creating the Background</h2>
+
+<h3>The Space Texture</h3>
+
+<p>Our background should consist of an image of stars that scrolls downwards so it appears as if the player is flying through space. We will begin by drawing a <strong>256 x 512</strong> px space background in our drawing tool of choice:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/background.png" title="background" alt="Pixel Art Space Background"><br>
+<em>Note: right click on the image, select <strong>Save As...</strong>, navigate to the project's <strong>Assets</strong> folder and save it in a new <strong>Sprites</strong> folder.</em></p>
+
+<p>Once saved into our Project, we can select the background image in the <strong>Project Area</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/background_in_projectarea.png" title="background_in_projectarea" alt="Background in Project Area"></p>
+
+<p>Afterwards we can modify the <strong>Import Settings</strong> in the <strong>Inspector</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/background_importsettings.png" title="background_importsettings" alt="Background Import Settings"><br>
+<em>Note: usually we would set the <strong>Texture Type</strong> to <strong>Sprite</strong> for a 2D game. But scrolling a texture with <a href="http://en.wikipedia.org/wiki/UV_mapping" rel="noreferrer">UV Mapping</a> only works for <strong>Textures</strong>, not for <strong>Sprites</strong>. Sprites would be pixel perfect, but scrolling them requires a <strong>Shader</strong> that would be far too complicated for this tutorial.</em></p>
+
+<h3>Adding it to a Quad</h3>
+
+<p>Alright, let's add the background to our game. We will select <strong>GameObject</strong>-&gt;<strong>3D Object</strong>-&gt;<strong>Quad</strong> from the <strong>Top Menu</strong> in order to add a Quad to our game:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/quad_inscene.png" title="quad_inscene" alt="Quad in Scene"><br>
+<em>Note: we use a <strong>Quad</strong> from the <strong>3D Object</strong> menu in a 2D game because a Texture (instead of a Sprite) can be added to it.</em></p>
+
+<p>Now we will take a look at the <strong>Inspector</strong> and <strong>scale</strong> the quad so it has the same aspect ratio as our background texture:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/quad_scaled.png" title="quad_scaled" alt="Quad Scaled"></p>
+
+<p>We will also rename it to <strong>Background</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/quad_renamed.png" title="quad_renamed" alt="Quad Renamed"></p>
+
+<p>And remove the <strong>Mesh Collider</strong> because we won't need it <em>(it's for 3D games)</em>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/meshcollider_remove.png" title="meshcollider_remove" alt="Remove Mesh Collider"></p>
+
+<p>Afterwards we can drag the background image from the <strong>Project Area</strong> onto the <strong>Background</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/quad_material_default.png" title="quad_material_default" alt="Quad with Default Material"></p>
+
+<p>If we press <strong>Play</strong> then we can now see our space background, which is still very dark:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/background_dark.png" title="background_dark" alt="Dark Background"></p>
+
+<h3>The Unlit Shader</h3>
+
+<p>The background is dark because it currently uses the <strong>Standard</strong> Shader, which only makes things bright if there are lights in the Scene. We won't use any kind of lights or shadows, so let's select the <strong>Unlit</strong>-&gt;<strong>Texture</strong> Shader:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/background_unlitshader.png" title="background_unlitshader" alt="Background with Unlit Texture Shader"></p>
+
+<p>If we press <strong>Play</strong> again then we can now see the background stars without being too dark:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/background_unlit_ingame.png" title="background_unlit_ingame" alt="Unlit Background ingame"></p>
+
+<h3>UV Mapping</h3>
+
+<p>If we take a closer look at the Shader properties then we can already see our UV <strong>Tiling</strong> and <strong>Offset</strong> here:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/background_uv.png" title="background_uv" alt="Background UV Properties"></p>
+
+<p>Feel free to play around with those properties and see how they change the background. <strong>Tiling</strong> will repeat it and <strong>Offset</strong> will change the texture's position. If we set the <strong>y Offset</strong> to values like <strong>0.1</strong>, <strong>0.2</strong>, <strong>0.3</strong> and so on then we can already see the scrolling happen.</p>
+
+<p>Of course, we don't want to change the offset manually 60 times per second in order to achieve a scrolling effect. We will write a <strong>Script</strong> that takes care of it. Let's click on the <strong>Add Component</strong> Button on the Quad, then select <strong>New Script</strong>, name it <strong>UVScroll</strong> and select <strong>CSharp</strong> for the language:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/background_uvscroll_created.png" title="background_uvscroll_created" alt="Background UVScroll"></p>
+
+<p>Unity just created a new <strong>C# Script</strong> in our <strong>Project Area</strong> and added it to the <strong>Quad</strong>. Let's create a new <strong>Scripts</strong> folder in our <strong>Project Area</strong> and move the Script into it:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/uvscroll_projectarea.png" title="uvscroll_projectarea" alt="UVScroll Script in Project Area"></p>
+
+<p>Now we can double click the Script in order to open it:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> UVScroll <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Update is called once per frame</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Update <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>We won't need the <strong>Start</strong> or the <strong>Update</strong> function so let's remove them. It's considered best practice to modify the <strong>UV Mapping</strong> in the <strong>LateUpdate</strong> function after all other calculations were finished. We will also add a public variable that let's us modify the Scroll Speed in the Inspector later on:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> UVScroll <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> Vector2 speed<span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> LateUpdate<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; GetComponent<span style="color: #008000;">&lt;</span>Renderer<span style="color: #008000;">&gt;</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">.</span><span style="color: #0000FF;">material</span><span style="color: #008000;">.</span><span style="color: #0000FF;">mainTextureOffset</span> <span style="color: #008000;">=</span> speed <span style="color: #008000;">*</span> Time<span style="color: #008000;">.</span><span style="color: #0000FF;">time</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: while it looks really simple, there are quite a few things happening behind the Scenes here. First of all, we used a <strong>Vector2</strong> for our <strong>speed</strong> variable to make sure that we can modify the <strong>x</strong> (horizontal) and <strong>y</strong> (vertical) speed. We use GetComponent&lt;Renderer&gt;() to access the renderer component. Using <strong>GetComponent&lt;Renderer&gt;().material</strong> makes sure that the UV offset is not modified permanently, as it would be the case when modifying it by hand. Instead by using <strong>GetComponent&lt;Renderer&gt;().material</strong> Unity creates a runtime copy of the Material and deletes it after the game is stopped. Furthermore we use the <strong>mainTextureOffset</strong> property to modify the main texture's UV offset. We then use <strong>Time.time</strong> to achieve the Scrolling effect because <strong>Time.time</strong> is the elapsed time since the beginning of the game. And since this time always increases smoothly, we might as well use it for our Scrolling. Furthermore we multiply the time by our <strong>speed</strong> to slow it down or make it faster. And because our <strong>speed</strong> variable is a <strong>Vector2</strong>, it will still be one after multiplying it with <strong>Time.time</strong>. So in the end we get a new <strong>Vector2</strong> that will be used for the <strong>UV Offset</strong>.</em><p></p>
+
+<p>Let's save the Script and then take a look at the <strong>Inspector</strong> again. Now we can modify the Speed. We will set the <strong>y</strong> speed <em>(for vertical scrolling)</em> to our wished speed and leave the <strong>x</strong> speed <em>(horizontal scrolling)</em> at <strong>0</strong> so it does not scroll horizontally at all:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/uvscroll_inspector_withspeed.png" title="uvscroll_inspector_withspeed" alt="UV Scroll in Inspector with Speed"></p>
+
+<h3>The Scrolling Space Texture</h3>
+
+<p>If we press <strong>Play</strong> then we can now see our background scrolling downwards, just as if we were flying through space:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/background_scrolling.gif" title="background_scrolling" alt="Background Scrolling"></p>
+
+<p>This effect is pretty good, but we will go one step further and implement <a href="http://en.wikipedia.org/wiki/Parallax_scrolling" rel="noreferrer">Parallax Scrolling</a> to add even more depth to it.</p>
+
+<h2>Parallax Scrolling</h2>
+
+<p>We will implement the easiest form of Parallax Scrolling by simply overlaying two background textures and scrolling them with different speeds. The one at the top should always be scrolled faster than the one on the bottom. Just as if we were flying through space, stars that are very close to us will <em>scroll</em> away faster than those that are really far away.</p>
+
+<p>Let's draw another texture that is mostly transparent with a few white stars in it:</p>
+
+<ul>
+<li><a href="http://noobtuts.com/content/unity/2d-space-shooter-game_PREMIUM/stars.png">Stars.png</a><br>
+<em>Note: right click on the link, select <strong>Save As...</strong> and save it in the project's <strong>Assets/Sprites</strong> folder.</em></li>
+</ul>
+
+<p>We will use the following <strong>Import Settings</strong> for it:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/stars_importsettings.png" title="stars_importsettings" alt="Stars Import Settings"></p>
+
+<p>We will need another Quad to put our texture on. Let's keep things clean and make the new Quad a child of the <strong>Background</strong>. All we have to do is right click the <strong>Background</strong> GameObject in the <strong>Hierarchy</strong> and select <strong>3D Object</strong>-&gt;<strong>Quad</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/background_create_child.png" title="background_create_child" alt="Create Background Child"></p>
+
+<p>Let's rename the new Quad to <strong>Stars</strong> and leave the scale at <strong>(1, 1, 1)</strong> this time:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/stars_transform.png" title="stars_transform" alt="Stars Transform"><br>
+<em>Note: we can leave the scale at <strong>(1, 1, 1)</strong> because the parent GameObject already has a Scale of <strong>(8, 16, 1)</strong> and since the stars are a child of it, they automatically get multiplied by that Scale. So our stars already have the same aspect ratio as the stars texture.</em></p>
+
+<p>We will also remove the <strong>Mesh Collider</strong> again because it's for 3D games:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/meshcollider_remove.png" title="meshcollider_remove" alt="Remove Mesh Collider"></p>
+
+<p>Now we can drag our <strong>stars</strong> Texture onto it. This time we will select the <strong>Unlit</strong>-&gt;<strong>Transparent</strong> Shader because most of our texture is transparent:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/stars_meshrenderer.png" title="stars_meshrenderer" alt="Stars Mesh Renderer"></p>
+
+<p>We want the stars to scroll downwards faster than the Background, so let's select <strong>Add Component</strong>-&gt;<strong>Scripts</strong>-&gt;<strong>UVScroll</strong> in the <strong>Inspector</strong> and then set the <strong>Y Speed</strong> to <strong>0.06</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/stars_uvscroll.png" title="stars_uvscroll" alt="Stars with UV Scroll Script"></p>
+
+<p>If we press <strong>Play</strong> then we can see some beautiful Parallax Scrolling:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/parallax_background.gif" title="parallax_background" alt="Unity Parallax Background"><br>
+<em>Note: Parallax Scrolling is one of the most awesome visual effects in 2D game development. All it takes are two textures that scroll with a different speed. The human perception takes care of the rest.</em></p>
+
+<h2>The Border</h2>
+
+<h3>The Border Colliders</h3>
+
+<p>We will add 4 borders around the background to make sure that the ships can't just fly out of it. Let's select the <strong>Background</strong> GameObject in the <strong>Hierarchy</strong> and then click on <strong>Add Component</strong>-&gt;<strong>Physics 2D</strong>-&gt;<strong>Box Collider 2D</strong> in the <strong>Inspector</strong> 4 times. We will then modify each Collider so one of them is on the left, one of them on the right, on of them on the top and one of them at the bottom:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/background_colliders.png" title="background_colliders" alt="Background Colliders"></p>
+
+<p>Here is how it looks in the <strong>Scene</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/background_colliders_inscene.png" title="background_colliders_inscene" alt="Background Colliders in Scene"></p>
+
+<h3>The Border Script</h3>
+
+<p>We want to make sure that bullets and enemy ships don't just fly into oblivion. Instead we want to destroy them as soon as they reach any of the borders.</p>
+
+<p>Let's select <strong>Add Component</strong>-&gt;<strong>New Script</strong>, choose <strong>CSharp</strong> and name it <strong>Border</strong>. We will also move it into our Scripts folder again and then double click it so it opens:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Border <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Update is called once per frame</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Update <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>We won't need the <strong>Start</strong> or the <strong>Update</strong> function. Instead we will use Unity's <a href="http://docs.unity3d.com/ScriptReference/MonoBehaviour.OnCollisionEnter2D.html">OnCollisionEnter2D</a> function to get notified whenever something collides with the borders:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Border <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> OnCollisionEnter2D<span style="color: #008000;">(</span>Collision2D coll<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Do Stuff..</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>Now whenever something collides with the border we want to destroy it, unless it's the player ship:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #6666cc; font-weight: bold;">void</span> OnCollisionEnter2D<span style="color: #008000;">(</span>Collision2D coll<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span>coll<span style="color: #008000;">.</span><span style="color: #0000FF;">gameObject</span><span style="color: #008000;">.</span><span style="color: #0000FF;">name</span> <span style="color: #008000;">!=</span> <span style="color: #666666;">"PlayerShip"</span><span style="color: #008000;">)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Destroy<span style="color: #008000;">(</span>coll<span style="color: #008000;">.</span><span style="color: #0000FF;">gameObject</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>And that's all we have to do to keep the Scene clean. Now whenever a ship or a bullet reaches the outside of the level then they will be destroyed automatically.</p>
+
+<h2>The Player Ship</h2>
+
+<h3>Drawing the Ship</h3>
+
+<p>Let's create a nice space ship for the player. We will use a tool like <a href="http://getpaint.net/" rel="noreferrer">Paint.NET</a> to draw a <strong>32 x 32</strong> px ship. We will also create two animations, one idle and one flying animation <em>(the flying animation plays when the user presses the up-arrow key)</em>.</p>
+
+<p>We will need a <strong>96 x 64</strong> px image to hold all our animations. The first row will hold the fly animation and the second row will hold the idle animation:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/ship.png" title="ship" alt="Space Ship Pixel Art"><br>
+<em>Note: right click the image and select <strong>Save As..</strong> and save it in the Project's <strong>Assets/Sprites</strong> folder.</em></p>
+
+<h3>Importing the Ship</h3>
+
+<p>Let's select the <strong>ship</strong> image in the <strong>Project Area</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/ship_projectarea.png" title="ship_projectarea" alt="Ship in Project Area"></p>
+
+<p>And then take a look over to the <strong>Inspector</strong> to modify the <strong>Import Settings</strong>. Because it's pixel art we want it to be shown exactly as in the image without any filtering or compression, so let's set the <strong>Filter Mode</strong> to <strong>Point</strong> and the <strong>Format</strong> to <strong>Truecolor</strong>. The <strong>Sprite Mode</strong> will be set to <strong>Multiple</strong> because we have several ships in one image. We also want Unity to display the ship with the proper size, this is what <strong>Pixels Per Unit</strong> is for:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/ship_importsettings.png" title="ship_importsettings" alt="Ship Import Settings"><br>
+<em>Note: a <strong>Pixels Per Unit</strong> value of <strong>32</strong> means that 32 x 32 pixels will fit into one unit in the game world. We will use this value for all our textures.</em></p>
+
+<h3>Slicing the Ship</h3>
+
+<p>Let's extract all those ships from the image. Once we set the <strong>Sprite Mode</strong> to <strong>Multiple</strong> we can open the <strong>Sprite Editor</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/ship_sprite_mode_and_sprite_editor.png" title="ship_sprite_mode_and_sprite_editor" alt="Sprite Mode and Sprite Editor"></p>
+
+<p>We will <strong>slice</strong> the image as a 32 x 32 px <strong>Grid</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/ship_slice_settings.png" title="ship_slice_settings" alt="Ship Slice Settings"></p>
+
+<p>Now we can press the <strong>Apply</strong> button at the top right corner of the <strong>Sprite Editor</strong> and then close it.</p>
+
+<p>If we look at our <strong>Project Area</strong> then we can see that Unity extracted the 5 ships from the image:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/ship_sliced.png" title="ship_sliced" alt="Ship Sliced"></p>
+
+<h3>Animating the Ship</h3>
+
+<p>Okay so now we have 3 slices for the <strong>fly</strong> animation and and 2 for the <strong>idle</strong> animation. We can create the fly animation by selecting the first 3 slices and then dragging them from the <strong>Project Area</strong> into the <strong>Scene</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/ship_slices_to_scene.png" title="ship_slices_to_scene" alt="Drag Ship Slices into Scene"></p>
+
+<p>When Unity asks us where to save the Animation we will simply create a new <strong>ShipAnimation</strong> folder in our Project's <strong>Assets</strong> directory and then save the animation with the name <strong>fly.anim</strong>.</p>
+
+<p>We will repeat the same process for the last two slices which will be saved as <strong>idle.anim</strong>.</p>
+
+<p>If we press <strong>Play</strong> then we can see the two animations that we just dragged into the scene:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/ship_animations.gif" title="ship_animations" alt="All Ship Animations in the Scene"></p>
+
+<h3>Cleaning up after Unity</h3>
+
+<p>Unity created one GameObject for each animation, but we only need the first one as we will see soon. Let's select the <strong>ship_3</strong> GameObject and then delete it:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/ship_animation_hierarchy_clean.png" title="ship_animation_hierarchy_clean" alt="Ship Hierarchy Clean"></p>
+
+<p>A similar thing happened in our <strong>Project Area</strong>. We now have <strong>2</strong> animations and <strong>2</strong> animation state machines:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/ship_animation_projectarea.png" title="ship_animation_projectarea" alt="Ship Animation in Project Area"></p>
+
+<p>Again we only need one animation state machine here, so let's delete the <strong>ship_3</strong> file:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/ship_animation_projectarea_clean.png" title="ship_animation_projectarea_clean" alt="Clean Ship Animation in Project Area"></p>
+
+<p>To keep things clean, we will also rename the <strong>ship_0</strong> GameObject in the <strong>Hierarchy</strong> to <strong>PlayerShip</strong> by right clicking it and selecting <strong>Rename</strong>, or pressing <strong>F2</strong> once it's selected:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/ship_renamed.png" title="ship_renamed" alt="Ship renamed in Hierarchy"></p>
+
+<h3>Animation Controller - Parameter</h3>
+
+<p>Let's double click the <strong>ship_0</strong> file in our <strong>ShipAnimation</strong> folder so we can see the <strong>Animator</strong> window:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/ship_animator.png" title="ship_animator" alt="Ship Animator"></p>
+
+<p>It's time for Mecanim...</p>
+
+<p>Our final Ship is just a state machine that <strong>automatically</strong> switches between the two animations <em>(Idle, Fly)</em> depending on whether the ship is currently flying <em>(as in: accelerating)</em> or not.</p>
+
+<p>For us, that parameter will be named <strong>Flying</strong>. We will use a boolean <em>(false/true)</em> value like so:</p>
+
+<ul>
+<li><strong>false</strong> means <strong>idle</strong></li>
+<li><strong>true</strong> means <strong>flying</strong></li>
+</ul>
+
+<p>So let's create a new Parameter in the Animator by clicking the <strong>+</strong> next to <strong>Parameters</strong> at the bottom left. We will create a new <strong>Bool</strong> Parameter with the name <strong>Flying</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/ship_flying_parameter.png" title="ship_flying_parameter" alt="Ship Flying Parameter"></p>
+
+<h3>Creating the Idle State</h3>
+
+<p>The <strong>fly</strong> state is already in the Animator, so let's add the <strong>idle</strong> state by simply dragging the <strong>idle.anim</strong> file from the <strong>ShipAnimation</strong> folder into the <strong>Animator</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/ship_animator_allstates.png" title="ship_animator_allstates" alt="Ship Animator with all States"></p>
+
+<h3>Connecting the States</h3>
+
+<p>Now we just have to connect both states together. We will select the <strong>fly</strong> state, right click it, select <strong>Make Transition</strong> and then drag the <strong>Transition</strong> onto the <strong>idle</strong> state:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/ship_animator_transition1.png" title="ship_animator_transition1" alt="Ship Animator with first Transition"></p>
+
+<p>The Transition is the white arrow between the two states. It tells Unity when to switch from one state to the other, so let's select the <strong>Transition</strong> and then take a look in the <strong>Inspector</strong> where we disable the <strong>Has Exit Time</strong> property and then add the <strong>Condition</strong> that <strong>Flying = false</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/ship_transition_flyingfalse.png" title="ship_transition_flyingfalse" alt="Ship Transition with Flying false"><br>
+<em>We want it to change from <strong>fly</strong> to <strong>idle</strong> when <strong>Flying</strong> is <strong>false</strong></em></p>
+
+<p>Afterwards we create another <strong>Transition</strong> from <strong>idle</strong> to <strong>fly</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/ship_animator_alltransitions.png" title="ship_animator_alltransitions" alt="Ship Animator with all Transitions"></p>
+
+<p>In this Transition we will set the <strong>Condition</strong> to <strong>Flying</strong> equals <strong>true</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/ship_transition_flyingtrue.png" title="ship_transition_flyingtrue" alt="Ship Flying True Transition"></p>
+
+<p>Now all that's left for us to do is set the <strong>Flying</strong> parameter from within the Movement Script. Unity will take care of playing animations and switching between them.</p>
+
+<p><em>This is why Mecanim is so incredibly powerful.</em></p>
+
+<h3>Ship Movement</h3>
+
+<p>The player should be able to control the ship by pressing the arrow keys. The movement should be physically correct, which means that the ship shouldn't be able to move through meteors, enemy ships or other things that we may encounter in space.</p>
+
+<p>We will need to add a Collider to our Ship in order to make it part of the Physics world. Without a Collider our ship is still visible in the game, but it's really just that - a visual effect, just an image. Nothing would collide with it.</p>
+
+<p>Let's select the ship in the <strong>Hierarchy</strong> and then click <strong>Add Component</strong>-&gt;<strong>Physics 2D</strong>-&gt;<strong>Box Collider 2D</strong> in the <strong>Inspector</strong> to add the Collider:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/ship_collider.png" title="ship_collider" alt="Ship Collider"></p>
+
+<p>If our ship would be a static object like a wall then we would be done already. However since our ship is also supposed to <strong>move</strong> through the physics world, it will also need a <strong>Rigidbody</strong>.</p>
+
+<p><em>Note: a Rigidbody is a very common component in many game &amp; physics engines. Everything that wants to move through the game world while making use of Physics will need a Rigidbody. Usually this applies to things like the Hero, Cars, Enemies and Bullets.</em></p>
+
+<p>We can add a <strong>Rigidbody</strong> by selecting <strong>Add Component</strong>-&gt;<strong>Physics 2D</strong>-&gt;<strong>Rigidbody 2D</strong> in the <strong>Inspector</strong>. We will use the following settings for our <strong>Rigidbody</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/ship_rigidbody.png" title="ship_rigidbody" alt="Ship Rigidbody"><br>
+<em>Note: we disabled the Gravity because there is none in a Space Shooter. We also enabled <strong>Fixed Angle</strong> to make sure that the Physics engine doesn't try to rotate the ship in case of collisions.</em></p>
+
+<p>Alright now that our ship physics are all set up we can get to the Movement Script. All we have to do is find out if one of the Arrow Keys is pressed and if so move into the direction. Whenever possible we should try to use the <strong>Rigidbody</strong> component for movement, which pretty much allows us to use <strong>AddForce</strong> and <strong>velocity</strong>.</p>
+
+<p>The velocity is the <strong>movement direction</strong> * <strong>speed</strong>. The following image shows us different movement directions:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/vector2_directions.png" title="vector2_directions" alt="Vector2 Directions"></p>
+
+<p>So let's select <strong>Add Component</strong>-&gt;<strong>New Script</strong> to create a new <strong>CSharp Script</strong> with the name <strong>Move</strong>. We will also move it into the <strong>Scripts</strong> folder in our <strong>Project Area</strong> and then double click it to open it:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Move <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Update is called once per frame</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Update <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>Let's start by adding a <strong>speed</strong> variable for the ship. We will make it <strong>public</strong> so that we can modify it in the <strong>Inspector</strong> later on. We can also remove the <strong>Start</strong> and <strong>Update</strong> functions because we won't need them:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Move <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Ship Speed</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">float</span> speed <span style="color: #008000;">=</span> <span style="color: #FF0000;">5</span><span style="color: #008000;">;</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>We will however need the <strong>FixedUpdate</strong> method. The difference between <strong>Update</strong> and <strong>FixedUpdate</strong> is that <strong>Update</strong> is called about 60 times per second, depending on how many <strong>FPS</strong> we have. <strong>FixedUpdate</strong> however is called in a certain time interval. The thing to remember about this is that all <strong>Physics</strong> calculations happen in the exact same time interval, which means that we should use <strong>FixedUpdate</strong> whenever we modify any Physics stuff like our <strong>Rigidbody</strong>.</p>
+
+<p>So let's create the <strong>FixedUpdate</strong> method:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Move <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Ship Speed</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">float</span> speed <span style="color: #008000;">=</span> <span style="color: #FF0000;">5</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> FixedUpdate<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: <strong>Start</strong>, <strong>Update</strong> and <strong>FixedUpdate</strong> are part of the functions that are automatically called by Unity. So it's important to name it exactly <strong>FixedUpdate</strong> with the same upper- and lowercase spelling.</em><p></p>
+
+<p>There are several ways to check for input here. For example, we could just check if the user pressed the <strong>left</strong> or <strong>right arrow</strong> key and then do horizontal movement. Of course some users like to use the <strong>WSAD</strong> keys too, so we would also have to check for the <strong>A</strong> and <strong>D</strong> keys to do horizontal movement. Now some users might even use a gamepad, which means that we should check this too.</p>
+
+<p>As usual Unity makes our lives easy by providing the <a href="http://docs.unity3d.com/ScriptReference/Input.GetAxis.html">GetAxis</a> function which automatically checks all the horizontal or vertical keys and then returns a value between <strong>-1</strong> <em>(for left)</em> and <strong>1</strong> <em>(for right)</em>. Or <strong>0</strong> if nothing was pressed:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #6666cc; font-weight: bold;">void</span> FixedUpdate<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Get Input from Arrow Keys, WSAD, Gamepads, ...</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">float</span> h <span style="color: #008000;">=</span> Input<span style="color: #008000;">.</span><span style="color: #0000FF;">GetAxisRaw</span><span style="color: #008000;">(</span><span style="color: #666666;">"Horizontal"</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">float</span> v <span style="color: #008000;">=</span> Input<span style="color: #008000;">.</span><span style="color: #0000FF;">GetAxisRaw</span><span style="color: #008000;">(</span><span style="color: #666666;">"Vertical"</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: we used <strong>GetAxisRaw</strong> instead of <strong>GetAxis</strong> to prevent any kinds of smoothing. It just makes the ship feel more responsive.</em><p></p>
+
+<p>Now we can use our <strong>h</strong> and <strong>v</strong> values to create a <strong>dir</strong>ection, multiply it with <strong>speed</strong> and then make it the Rigidbody's velocity:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #6666cc; font-weight: bold;">void</span> FixedUpdate<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Get Input from Arrow Keys, WSAD, Gamepads, ...</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">float</span> h <span style="color: #008000;">=</span> Input<span style="color: #008000;">.</span><span style="color: #0000FF;">GetAxisRaw</span><span style="color: #008000;">(</span><span style="color: #666666;">"Horizontal"</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">float</span> v <span style="color: #008000;">=</span> Input<span style="color: #008000;">.</span><span style="color: #0000FF;">GetAxisRaw</span><span style="color: #008000;">(</span><span style="color: #666666;">"Vertical"</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Set the Rigidbody's Velocity</span><br>
+&nbsp; &nbsp; Vector2 dir <span style="color: #008000;">=</span> <span style="color: #008000;">new</span> Vector2<span style="color: #008000;">(</span>h, v<span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; GetComponent<span style="color: #008000;">&lt;</span>Rigidbody2D<span style="color: #008000;">&gt;</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">.</span><span style="color: #0000FF;">velocity</span> <span style="color: #008000;">=</span> dir<span style="color: #008000;">.</span><span style="color: #0000FF;">normalized</span> <span style="color: #008000;">*</span> speed<span style="color: #008000;">;</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: we used the <strong>normalized</strong> direction to make sure that its length is always exactly <strong>1</strong>. This is necessary to prevent the ship from moving too fast into diagonal directions (for example when the Up and Right Arrow Keys are pressed at the same time). This problem is based on the mathematical fact that a vector like <strong>(1, 0)</strong> has the length <strong>1</strong>, but the vector <strong>(1, 1)</strong> actually has the length <strong>1.41</strong>. We also multiplied the direction with <strong>speed</strong> to make it 'longer'. This is what makes the ship move faster.</em><p></p>
+
+<p>The movement itself is done, but we still have to set our animation state machine's <strong>Flying</strong> parameter in order for the animation to look properly. This is very easy, all we have to do is get access to the <strong>Animator</strong> component and then use its <strong>SetBool</strong> function to set our parameter to <strong>true</strong> or <strong>false</strong> depending on the vertical <em>(y)</em> direction:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #6666cc; font-weight: bold;">void</span> FixedUpdate<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Get Input from Arrow Keys, WSAD, Gamepads, ...</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">float</span> h <span style="color: #008000;">=</span> Input<span style="color: #008000;">.</span><span style="color: #0000FF;">GetAxisRaw</span><span style="color: #008000;">(</span><span style="color: #666666;">"Horizontal"</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">float</span> v <span style="color: #008000;">=</span> Input<span style="color: #008000;">.</span><span style="color: #0000FF;">GetAxisRaw</span><span style="color: #008000;">(</span><span style="color: #666666;">"Vertical"</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Set the Rigidbody's Velocity</span><br>
+&nbsp; &nbsp; Vector2 dir <span style="color: #008000;">=</span> <span style="color: #008000;">new</span> Vector2<span style="color: #008000;">(</span>h, v<span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; GetComponent<span style="color: #008000;">&lt;</span>Rigidbody2D<span style="color: #008000;">&gt;</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">.</span><span style="color: #0000FF;">velocity</span> <span style="color: #008000;">=</span> dir<span style="color: #008000;">.</span><span style="color: #0000FF;">normalized</span> <span style="color: #008000;">*</span> speed<span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Set Animation Parameter</span><br>
+&nbsp; &nbsp; GetComponent<span style="color: #008000;">&lt;</span>Animator<span style="color: #008000;">&gt;</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">.</span><span style="color: #0000FF;">SetBool</span><span style="color: #008000;">(</span><span style="color: #666666;">"Flying"</span>, <span style="color: #008000;">(</span>v <span style="color: #008000;">&gt;</span> <span style="color: #FF0000;">0</span><span style="color: #008000;">)</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: the expression <strong>(v &gt; 0)</strong> results in a boolean value. It is <strong>true</strong> if <strong>v is greater 0</strong> and <strong>false</strong> otherwise.</em><p></p>
+
+<p>If we press <strong>Play</strong> then we can now move the ship with the arrow keys:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/ship_movement.gif" title="ship_movement" alt="Ship Movement"></p>
+
+<h3>Firing Bullets</h3>
+
+<p>The player should be able to fire bullets with the space key. Let's create a new <strong>C# Script</strong> to implement firing. We can create one by right clicking anywhere in the <strong>Project Area</strong> and selecting <strong>Create</strong>-&gt;<strong>C# Script</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/create_script.png" title="create_script" alt="Create Script"></p>
+
+<p>We will name it <strong>FirePlayer</strong> and then double click it so it opens:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> FirePlayer <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Update is called once per frame</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Update <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>Now we can add a public <strong>GameObject</strong> variable that allows us to specify the bullet <a href="http://noobtuts.com/unity/prefabs">Prefab</a> in the <strong>Inspector</strong> later on. We can also delete the <strong>Start</strong> function because we won't need it:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> FirePlayer <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Bullet Prefab</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> GameObject bullet<span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Update is called once per frame</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Update <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>There is another thing to add here. Upon pressing the <strong>Space</strong> key we want to shoot the bullet. Or in other words, we want to load the bullet into the game. The bullet will take care of flying upwards on its own.</p>
+
+<p>Here is how we can do it:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> FirePlayer <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Bullet Prefab</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> GameObject bullet<span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Update is called once per frame</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Update <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span>Input<span style="color: #008000;">.</span><span style="color: #0000FF;">GetKeyDown</span><span style="color: #008000;">(</span>KeyCode<span style="color: #008000;">.</span><span style="color: #0000FF;">Space</span><span style="color: #008000;">)</span><span style="color: #008000;">)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Instantiate<span style="color: #008000;">(</span>bullet,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transform<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Quaternion<span style="color: #008000;">.</span><span style="color: #0000FF;">identity</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: <strong>transform.position</strong> is the current position and <strong>Quaternion.identity</strong> is the default rotation.</em><p></p>
+
+<p>So far our Script does exactly what it's supposed to do. But there is one last adjustment to be made here. We want to make sure that the Player's own bullet will never collide with the Player's ship:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #008080; font-style: italic;">// Update is called once per frame</span><br>
+<span style="color: #6666cc; font-weight: bold;">void</span> Update <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span>Input<span style="color: #008000;">.</span><span style="color: #0000FF;">GetKeyDown</span><span style="color: #008000;">(</span>KeyCode<span style="color: #008000;">.</span><span style="color: #0000FF;">Space</span><span style="color: #008000;">)</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Spawn the Bullet</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; GameObject g <span style="color: #008000;">=</span> <span style="color: #008000;">(</span>GameObject<span style="color: #008000;">)</span> Instantiate<span style="color: #008000;">(</span>bullet,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transform<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Quaternion<span style="color: #008000;">.</span><span style="color: #0000FF;">identity</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Ignore Bullet&lt;-&gt;Player collisions</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Physics2D<span style="color: #008000;">.</span><span style="color: #0000FF;">IgnoreCollision</span><span style="color: #008000;">(</span>g<span style="color: #008000;">.</span><span style="color: #0000FF;">GetComponent</span><span style="color: #008000;">&lt;</span>Collider2D<span style="color: #008000;">&gt;</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transform<span style="color: #008000;">.</span><span style="color: #0000FF;">parent</span><span style="color: #008000;">.</span><span style="color: #0000FF;">GetComponent</span><span style="color: #008000;">&lt;</span>Collider2D<span style="color: #008000;">&gt;</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: using <strong>transform.parent</strong> (which references a GameObject's parent in the Hierarchy) will make sense very soon.</em><p></p>
+
+<p>Now if we would add the Script to the PlayerShip and press Space then the bullet would be instantiated exactly inside of the ship, which would look really weird. To prevent this from happening we will create two <strong>BulletSpawn</strong> positions that are slightly above the ship.</p>
+
+<p>Let's right click the <strong>PlayerShip</strong> in the <strong>Hierarchy</strong> and select <strong>Create Empty</strong> twice. We will rename one GameObject to <strong>BulletSpawnLeft</strong> and one to <strong>BulletSpawnRight</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/player_bulletspawns_hierarchy.png" title="player_bulletspawns_hierarchy" alt="Player Bullet Spawn Points in Hierarchy"></p>
+
+<p>We will position the <strong>BulletSpawnLeft</strong> GameObject slightly above the left wing of the ship:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/player_bulletspawn_left_position.png" title="player_bulletspawn_left_position" alt="Player Bullet Spawn Left Position"></p>
+
+<p>And the right one slightly above the right wing of the ship:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/player_bulletspawn_right_position.png" title="player_bulletspawn_right_position" alt="Player Bullet Spawn Right Position"></p>
+
+<p>We can't really see the two spawn points in the <strong>Scene</strong> because they are just empty GameObjects <em>(which is totally fine)</em>. You may want to give each of them a <strong>Gizmo</strong> to see their positions in the Scene:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/player_bulletspawn_right_gizmo.png" title="player_bulletspawn_right_gizmo" alt="Player Bullet Spawn Right Gizmo"><br>
+<em>Note: a Gizmo is just a visual helper that is only shown in the Scene and not in the final game.</em></p>
+
+<p>Here are the two Spawn positions in the Scene with a Gizmo:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/player_bulletspawn_inscene.png" title="player_bulletspawn_inscene" alt="Player Bullet Spawn Points in Scene"></p>
+
+<p>One last thing to do here. We will select both of them in the <strong>Hierarchy</strong> and then click on <strong>Add Component</strong>-&gt;<strong>Scripts</strong>-&gt;<strong>Fire Player</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/fireplayer_inspector.png" title="fireplayer_inspector" alt="Fire Player Script in Inspector"></p>
+
+<p>Now both of them will react to Space key presses. We just have to create the Bullet so that both spawn points can fire it.</p>
+
+<h3>Tagging the Ship</h3>
+
+<p>Before we can work on the bullets we will need a way to find out if a certain GameObject is a Ship or not. Right now there is only the <strong>PlayerShip</strong> in our Scene, so we could simply check the name. But as soon as there are multiple ships with different names we will need a better solution.</p>
+
+<p>The easiest way to categorize a GameObject is to use a <strong>Tag</strong>. A <strong>Tag</strong> is really just a category that helps us to know what we are dealing with. We can see a GameObject's Tag if we select it in the <strong>Hierarchy</strong> and then take a look at the <strong>Inspector</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/playership_tag.png" title="playership_tag" alt="PlayerShip Tag in Inspector"></p>
+
+<p>Let's select <strong>Add Tag...</strong> from the Tags list and add a <strong>Ship</strong> tag:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/tag_ship.png" title="tag_ship" alt="Add a Tag in Unity"></p>
+
+<p>Afterwards we can select the <strong>PlayerShip</strong> again and then assign the <strong>Ship</strong> tag to it:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/playership_tag_ship.png" title="playership_tag_ship" alt="Player ship Tag Ship"><br>
+<em>Note: we can find out a GameObject's tag by using <strong>gameObject.tag</strong> in a Script.</em></p>
+
+<h2>Bullets</h2>
+
+<h3>The Bullet Texture</h3>
+
+<p>Let's create a bullet texture so the ships have something to shoot with. We will use a <strong>16 x 16</strong> px image:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/bullet_red.png" title="bullet_red" alt="Red Bullet"><br>
+<em>Note: right click the image and select <strong>Save As..</strong> and save it in the Project's <strong>Assets/Sprites</strong> folder.</em></p>
+
+<p>And import it with the following settings:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/bullet_red_importsettings.png" title="bullet_red_importsettings" alt="Red Bullet Import settings"></p>
+
+<p>And then drag it from the <strong>Project Area</strong> into the <strong>Scene</strong> to create a <strong>GameObject</strong> from it:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/bullet_red_gameobject.png" title="bullet_red_gameobject" alt="Bullet Red GameObject"></p>
+
+<h3>Bullet Physics</h3>
+
+<p>Our Bullet should be able to collide with enemy ships and it should be able to move through the world. As usual, this means that we will have to add a <strong>Collider 2D</strong> and <strong>Rigidbody 2D</strong> by using the <strong>Add Component</strong> button in the <strong>Inspector</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/bullet_red_collider_and_rigidbody.png" title="bullet_red_collider_and_rigidbody" alt="Red Bullet Collider and Rigidbody"></p>
+
+<h3>Making it Fly</h3>
+
+<p>Next on we will make the bullet fly into a certain direction. If we think about it for a second, the player's bullet, the enemy's bullet and the enemy ship itself will all have to fly into a certain direction by default. So let's create one Script that works for each of them.</p>
+
+<p>We will select <strong>Add Component</strong>-&gt;<strong>New Script</strong>, name it <strong>ContinuousVelocity</strong>, select <strong>CSharp</strong> as the language, move it into our Scripts folder and then open it:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> ContinuousVelocity <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Update is called once per frame</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Update <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>We won't need the <strong>Start</strong> or the <strong>Update</strong> function. Instead we will use the <strong>FixedUpdate</strong> function to set the velocity all the time:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> ContinuousVelocity <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// The Velocity</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> Vector2 velocity<span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> FixedUpdate<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; GetComponent<span style="color: #008000;">&lt;</span>Rigidbody2D<span style="color: #008000;">&gt;</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">.</span><span style="color: #0000FF;">velocity</span> <span style="color: #008000;">=</span> velocity<span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: in theory it would be enough to set the velocity once in <strong>Start</strong>. However we want to prepare for cases where ships collide with other ships. The only way to guarantee that the ship will always keep moving even after collisions is to set the velocity over and over again in <strong>FixedUpdate</strong>.</em><p></p>
+
+<p>We will also take a look at the <strong>Inspector</strong> and assign a velocity that makes it fly upwards rather fast:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/bullet_velocity.png" title="bullet_velocity" alt="Bullet Velocity"></p>
+
+<h3>Dealing Damage</h3>
+
+<p>There is one more thing to do when it comes to bullets: dealing damage. The bullet should destroy any ship that it collides with. Let's select the bullet in the <strong>Hierarchy</strong> and then click on <strong>Add Component</strong>-&gt;<strong>New Script</strong>, select <strong>CSharp</strong>, name it <strong>BulletDamage</strong>, move it into our Scripts folder and then open it:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> BulletDamage <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Update is called once per frame</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Update <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>Since the bullet has a Collider, Unity will automatically notify us about all kinds of collisions. All we have to do is use the <a href="http://docs.unity3d.com/ScriptReference/MonoBehaviour.OnCollisionEnter2D.html">OnCollisionEnter2D</a> function:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> BulletDamage <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> OnCollisionEnter2D<span style="color: #008000;">(</span>Collision2D coll<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Do Stuff...</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>Here we can check if whatever the bullet collided with is a Ship, in which case we will just destroy it:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #6666cc; font-weight: bold;">void</span> OnCollisionEnter2D<span style="color: #008000;">(</span>Collision2D coll<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Collided with a Ship? Then destroy it.</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span>coll<span style="color: #008000;">.</span><span style="color: #0000FF;">gameObject</span><span style="color: #008000;">.</span><span style="color: #0000FF;">tag</span> <span style="color: #008000;">==</span> <span style="color: #666666;">"Ship"</span><span style="color: #008000;">)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Destroy<span style="color: #008000;">(</span>coll<span style="color: #008000;">.</span><span style="color: #0000FF;">gameObject</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: we will assign the <strong>Ship</strong> tag to all of our ships, hence we can check it here without worrying. We used the <strong>Destroy</strong> function to delete the GameObject from the Scene.</em><p></p>
+
+<p>We don't want the Bullet to stay in the Scene after it collided with something, so let's destroy it in any case:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> BulletDamage <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> OnCollisionEnter2D<span style="color: #008000;">(</span>Collision2D coll<span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Collided with a Ship? Then destroy it.</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">if</span> <span style="color: #008000;">(</span>coll<span style="color: #008000;">.</span><span style="color: #0000FF;">gameObject</span><span style="color: #008000;">.</span><span style="color: #0000FF;">tag</span> <span style="color: #008000;">==</span> <span style="color: #666666;">"Ship"</span><span style="color: #008000;">)</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Destroy<span style="color: #008000;">(</span>coll<span style="color: #008000;">.</span><span style="color: #0000FF;">gameObject</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Destroy Bullet in any case</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Destroy<span style="color: #008000;">(</span>gameObject<span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<h3>Creating the Bullet Prefab</h3>
+
+<p>We don't want the bullet to be in the <strong>Hierarchy</strong> all the time, instead we only want to have it there when the player actually fires.</p>
+
+<p>Let's select the bullet from the <strong>Hierarchy</strong>, rename it to <strong>BulletPlayer</strong> and drag it into a new <strong>Prefabs</strong> folder in the <strong>Project Area</strong> to create a <a href="http://noobtuts.com/unity/prefabs">Prefab</a>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/bullet_create_prefab.png" title="bullet_create_prefab" alt="Create Bullet Prefab"></p>
+
+<p>Now the bullet was saved in our <strong>Project Area</strong> and we can load it back into the game any time we want. Let's also <strong>delete</strong> the Bullet from the <strong>Hierarchy</strong> because we don't need it to be there from the beginning.</p>
+
+<h3>The Enemy Bullet</h3>
+
+<p>We will create one more bullet for the enemy ship. This time it will be a yellow Sprite:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/bullet_yellow.png" title="bullet_yellow" alt="Yellow Bullet"><br>
+<em>Note: right click on the image, select <strong>Save As...</strong> and save it in the project's <strong>Assets/Sprites</strong> folder.</em></p>
+
+<p>Now we can repeat the exact same work-flow that we used for the red bullet. We will then create a <strong>BulletEnemy</strong> Prefab and set the velocity to fly downwards.</p>
+
+<p>Here is the final result:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/bullet_yellow_prefab.png" title="bullet_yellow_prefab" alt="Yellow Bullet Prefab"></p>
+
+<h3>Using the Player Bullet</h3>
+
+<p>With all the bullets created, we can now make use of the <strong>BulletPlayer</strong> Prefab to make the ship shoot it.</p>
+
+<p>Let's select the two <strong>BulletSpawn</strong> GameObjects that are children of the <strong>PlayerShip</strong> and then drag the <strong>BulletPlayer</strong> from the <strong>Project Area</strong> into the <strong>FirePlayer</strong> Script's <strong>Bullet</strong> slot:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/fireplayer_withbullet.png" title="fireplayer_withbullet" alt="Fire Player Script with Bullet Prefab"></p>
+
+<p>If we press <strong>Play</strong> then we can now shoot two bullets upon pressing Space:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/player_firing.png" title="player_firing" alt="Player Firing Bullets"></p>
+
+<h2>Enemies</h2>
+
+<h3>Creating the Texture</h3>
+
+<p>Let's add some enemies to our game. We will begin by drawing a <strong>32 x 32 px</strong> image of an enemy ship:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/enemy.png" title="enemy" alt="Enemy"><br>
+<em>Note: right click it, select <strong>Save As..</strong> and save it in the Project's <strong>Assets/Sprites</strong> directory.</em></p>
+
+<p>We will use the following <strong>Import Settings</strong> for the enemy ship:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/enemy_importsettings.png" title="enemy_importsettings" alt="Enemy Import Settings"></p>
+
+<h3>Creating the GameObject</h3>
+
+<p>Now we can drag the enemy Sprite from the <strong>Project Area</strong> into the <strong>Scene</strong> to create a GameObject from it.</p>
+
+<h3>Physics</h3>
+
+<p>Afterwards we select <strong>Add Component</strong>-&gt;<strong>Physics 2D</strong>-&gt;<strong>Circle Collider 2D</strong> in the <strong>Inspector</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/enemy_collider.png" title="enemy_collider" alt="Enemy Collider"></p>
+
+<p>The enemies are also supposed to fly downwards. And everything that moves through the game world is supposed to have a <strong>Rigidbody</strong>. Let's select <strong>Add Component</strong>-&gt;<strong>Physics 2D</strong>-&gt;<strong>Rigidbody 2D</strong> and then assign the following properties:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/enemy_rigidbody.png" title="enemy_rigidbody" alt="Enemy Rigidbody"></p>
+
+<h3>Enemy Movement</h3>
+
+<p>The enemies should always fly downwards. We already have a Script for this, so let's select <strong>Add Component</strong>-&gt;<strong>Scripts</strong>-&gt;<strong>Continuous Velocity</strong> and assign a small downwards velocity:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/enemy_velocity.png" title="enemy_velocity" alt="Enemy Velocity"></p>
+
+<h3>Tagging the Enemy</h3>
+
+<p>Let's categorize our enemy ship, just like we did with the player's ship. We will select the <strong>Ship</strong> tag in the <strong>Inspector</strong> to make sure that bullets can destroy it:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/enemy_tag.png" title="enemy_tag" alt="Enemy Tag"></p>
+
+<h3>Firing Bullets</h3>
+
+<p>Just like we did with the player ship, we will also right click the enemy ship in the <strong>Hierarchy</strong> and select <strong>Create Empty</strong> to create a Bullet Spawn Point. This time we will only need one Spawn Point. Let's also rename it to <strong>BulletSpawn</strong> in the <strong>Hierarchy</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/enemy_bulletspawn_hierarchy.png" title="enemy_bulletspawn_hierarchy" alt="Enemy Bullet Spawn Points in Hierarchy"></p>
+
+<p>We will position the point at the bottom of the ship. Feel free to also assign a Gizmo for easier recognition:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/enemy_bulletspawn_posandgizmo.png" title="enemy_bulletspawn_posandgizmo" alt="Enemy Bullet Spawn Position and Gizmo"></p>
+
+<p>Now we can select <strong>Add Component</strong>-&gt;<strong>New Script</strong>, select <strong>CSharp</strong> as the language, name it <strong>FireEnemy</strong>, move it into our Scripts folder and then open it:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> FireEnemy <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Update is called once per frame</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Update <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>We won't need the <strong>Update</strong> function so let's remove it. We will need two public variables, one for the bullet prefab and one for the firing interval:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> FireEnemy <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// The Bullet Prefab</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> GameObject bullet<span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// The firing Interval</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">float</span> interval <span style="color: #008000;">=</span> <span style="color: #FF0000;">2</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>Now we can use Unity's <a href="http://docs.unity3d.com/ScriptReference/MonoBehaviour.InvokeRepeating.html">InvokeRepeating</a> function to instantiate a new bullet every few seconds:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> FireEnemy <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// The Bullet Prefab</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> GameObject bullet<span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// The firing Interval</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">float</span> interval <span style="color: #008000;">=</span> <span style="color: #FF0000;">2</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Call Fire every few seconds</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; InvokeRepeating<span style="color: #008000;">(</span><span style="color: #666666;">"Fire"</span>, interval, interval<span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Fire<span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Spawn the Bullet</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; GameObject g <span style="color: #008000;">=</span> <span style="color: #008000;">(</span>GameObject<span style="color: #008000;">)</span>Instantiate<span style="color: #008000;">(</span>bullet,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;transform<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Quaternion<span style="color: #008000;">.</span><span style="color: #0000FF;">identity</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Ignore Bullet&lt;-&gt;Enemy Ship collisions</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Physics2D<span style="color: #008000;">.</span><span style="color: #0000FF;">IgnoreCollision</span><span style="color: #008000;">(</span>g<span style="color: #008000;">.</span><span style="color: #0000FF;">GetComponent</span><span style="color: #008000;">&lt;</span>Collider2D<span style="color: #008000;">&gt;</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span>,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; transform<span style="color: #008000;">.</span><span style="color: #0000FF;">parent</span><span style="color: #008000;">.</span><span style="color: #0000FF;">GetComponent</span><span style="color: #008000;">&lt;</span>Collider2D<span style="color: #008000;">&gt;</span><span style="color: #008000;">(</span><span style="color: #008000;">)</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><br>
+<em>Note: <strong>InvokeRepeating</strong> calls the Fire function every few seconds. The second parameter is the time until the first call and the third parameter is the repeating interval. The Fire function simply instantiates the bullet prefab at the current position with the default rotation. Afterwards we use <strong>Physics2D.IgnoreCollision</strong> to make sure that the bullet never hits it's own ship. We used <strong>transform.parent</strong> because the Bullet Spawn is the child of the enemy ship, so in order to access the enemy ship we have to use the <strong>parent</strong> property.</em><p></p>
+
+<p>If we save the Script and take a look over to the <strong>Inspector</strong> then we can now drag the <strong>BulletEnemy</strong> Prefab into the Script's <strong>Bullet</strong> slot:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/enemy_bulletspawn_withscript.png" title="enemy_bulletspawn_withscript" alt="Enemy Bullet Spawn with Script"></p>
+
+<p>If we press <strong>Play</strong> then we can now see the enemy ship shooting a bullet every few seconds:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/enemy_firing.png" title="enemy_firing" alt="Enemy Firing a Bullet"></p>
+
+<p>The enemy doesn't have to be in the Scene from the beginning, instead we will spawn it later on. So let's rename it to <strong>EnemyShip</strong> and then drag it from the <strong>Hierarchy</strong> into the <strong>Prefabs</strong> folder to create a Prefab from it:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/enemy_prefab_projectarea.png" title="enemy_prefab_projectarea" alt="Enemy Prefab in Project Area"></p>
+
+<p>Afterwards we can <strong>delete</strong> it from the <strong>Hierarchy</strong> again.</p>
+
+<h2>The Spawner</h2>
+
+<p>Let's create 5 empty GameObjects by selecting <strong>GameObject</strong>-&gt;<strong>Create Empty</strong> from the top menu. We will name each of them <strong>Spawner</strong> and give each of them a Gizmo. We will position them at the top of the game at:</p>
+
+<ul>
+<li><strong>(-3, 7)</strong></li>
+<li><strong>(-1.5, 7)</strong></li>
+<li><strong>(0, 7)</strong></li>
+<li><strong>(1.5, 7)</strong></li>
+<li><strong>(3, 7)</strong></li>
+</ul>
+
+<p>And here is how it looks in the <strong>Scene</strong>:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/spawner_positions.png" title="spawner_positions" alt="Spawner Positions"></p>
+
+<p>With all of them selected, we will click on <strong>Add Component</strong>-&gt;<strong>New Script</strong>, select <strong>CSharp</strong> as the language, name it <strong>Spawn</strong>, move the Script into our Scripts folder and then open it:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Spawn <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Update is called once per frame</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Update <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>At this point we already know how to <strong>Instantiate</strong> a GameObject every few seconds:<br>
+</p><pre class="highlight csharp" style="white-space: nowrap"><code><span class="csharp"><span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">UnityEngine</span><span style="color: #008000;">;</span><br>
+<span style="color: #0600FF; font-weight: bold;">using</span> <span style="color: #008080;">System.Collections</span><span style="color: #008000;">;</span><br>
+<br>
+<span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">class</span> Spawn <span style="color: #008000;">:</span> MonoBehaviour <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// The Ship</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> GameObject ship<span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// The Interval</span><br>
+&nbsp; &nbsp; <span style="color: #0600FF; font-weight: bold;">public</span> <span style="color: #6666cc; font-weight: bold;">float</span> interval <span style="color: #008000;">=</span> <span style="color: #FF0000;">1</span><span style="color: #008000;">;</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #008080; font-style: italic;">// Use this for initialization</span><br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> Start <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; InvokeRepeating<span style="color: #008000;">(</span><span style="color: #666666;">"SpawnNext"</span>, interval, interval<span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<br>
+&nbsp; &nbsp; <span style="color: #6666cc; font-weight: bold;">void</span> SpawnNext <span style="color: #008000;">(</span><span style="color: #008000;">)</span> <span style="color: #008000;">{</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp; Instantiate<span style="color: #008000;">(</span>ship, transform<span style="color: #008000;">.</span><span style="color: #0000FF;">position</span>, Quaternion<span style="color: #008000;">.</span><span style="color: #0000FF;">identity</span><span style="color: #008000;">)</span><span style="color: #008000;">;</span><br>
+&nbsp; &nbsp; <span style="color: #008000;">}</span><br>
+<span style="color: #008000;">}</span></span></code></pre><p></p>
+
+<p>After saving the Script we can drag the <strong>EnemyShip</strong> Prefab from the <strong>Project Area</strong> into the <strong>Ship</strong> slots:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/spawner_inspector.png" title="spawner_inspector" alt="Spawner Script in Inspector"></p>
+
+<p>It's also a good idea to give each Spawner a different interval to make things seem more randomly.</p>
+
+<p>If we press <strong>Play</strong> then we can now see several enemy ships spawn at the top of the game:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/spawner_ingame.png" title="spawner_ingame" alt="Spawner in game"></p>
+
+<p>And now we can lean back and enjoy our Unity 2D Space Shooter Game:<br>
+<img src="./noobtuts - Unity 2D Space Shooter Game_files/unity_2d_space_shooter_b.png" title="unity_2d_space_shooter_b" alt="Unity 2D Space Shooter"></p>
+
+<h2>Summary</h2>
+
+<p>In this Tutorial we created a very clean foundation for a Space Shooter. We learned all the techniques to bring our ships to life, now it's up to the reader to make the game as fun as possible.</p>
+
+<p>There are all kinds of improvements that could be implemented, for example:</p>
+
+<ul>
+<li>Explosions</li>
+<li>More enemy ships</li>
+<li>A Menu</li>
+<li>A Win/Lose Screen</li>
+<li>More Animations</li>
+<li>A High Score</li>
+<li>Ship Upgrades</li>
+<li>Different Levels</li>
+</ul>
+
+<p>And always remember: it's Unity, it's easy! Most of the things can be done without writing any code at all.</p>
+
+    
+      </article>
+</section>
+
+  <footer>
+    <p>© 2012-2015 <a href="http://noobtuts.com/">noobtuts.com</a></p>
+  </footer>
+
+
+
+</body></html>
